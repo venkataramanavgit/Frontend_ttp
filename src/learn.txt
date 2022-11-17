@@ -1,0 +1,45 @@
+const => variable is immutable, variable
+const for array or object   is mutable
+
+const calc = x => x * 2
+Now, you can use the variable name to call the function, like this:
+calc(5); // returns 10
+
+const calcSum = (x, y) => x + y
+// function call
+calcSum(2, 3); // returns 5
+
+If the function body is an expression, then you don't need to use the return
+keyword. The expression is always implicitly returned from the function. When you
+have multiple lines in the function body, you have to use curly brackets and a return
+statement, as follows:
+const calcSum = (x, y) => {
+ console.log('Calculating sum');
+ return x + y;
+}
+
+If the function doesn't have any arguments, then you should use empty parentheses,
+like so:
+const sayHello = () => "Hello"
+
+
+let person = {firstName: 'John', lastName: 'Johnson'};
+let greeting = "Hello " + ${person.firstName} + " " +
+ ${person.lastName};
+With the template literals, the syntax looks like this. You have to use backticks (' ')
+instead of single or double quotes:
+let person = {firstName: 'John', lastName: 'Johnson'};
+let greeting = 'Hello ${person.firstName}
+ ${person.lastName}';
+
+
+ <div style={{ height: 20, width: 200 }}>
+ Hello
+</div>
+This second example creates a style object first, which is then used in the div element,
+The object name should use the camelCase naming convention:
+const divStyle = { color: 'red', height: 30 };
+const MyComponent = () => (
+ <div style={divStyle}>Hello</div>
+);
+

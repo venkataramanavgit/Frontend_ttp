@@ -1,25 +1,38 @@
-import logo from './logo.svg';
+import React, { useState,useEffect } from 'react';
 import './App.css';
-
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
-export default App;
+ const [data, setData] = useState([]);
+ const fetchData = () => {
+ fetch('timetoprogress.herokuapp.com/api/cars')
+ .then(response =>response.json())
+ .then(data =>setData(data.items))
+ 
+ .catch(err => console.error(err))
+ }
+ useEffect(() => {
+  fetchData()
+}, [])
+
+ return (
+  <div className="App">
+
+  { <table>
+  <tbody>
+  {
+  data.map((item,i)=>
+  <tr key={i}>
+  <td>{item.model}</td>
+  <td>
+  <a href={item.self.href}>
+  {item.self.href}</a>
+  </td>
+  </tr>
+  )
+  }
+  </tbody>
+  </table> }
+  </div>
+  );
+ }
+ export default App;
