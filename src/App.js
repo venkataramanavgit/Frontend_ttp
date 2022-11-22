@@ -1,38 +1,71 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState ,useEffect} from 'react';
+import axios from 'axios';
 import './App.css';
 function App() {
-
+//  const [keyword, setKeyword] = useState('');
  const [data, setData] = useState([]);
- const fetchData = () => {
- fetch('timetoprogress.herokuapp.com/api/cars')
- .then(response =>response.json())
- .then(data =>setData(data.items))
- 
- .catch(err => console.error(err))
- }
+ const [isLoading, setLoading] = useState(true);
+ const baseurl = "http://timetoprogress.herokuapp.com/api/car/";
+
+
  useEffect(() => {
-  fetchData()
-}, [])
-
- return (
-  <div className="App">
-
-  { <table>
-  <tbody>
-  {
-  data.map((item,i)=>
-  <tr key={i}>
-  <td>{item.model}</td>
-  <td>
-  <a href={item.self.href}>
-  {item.self.href}</a>
-  </td>
-  </tr>
-  )
+   axios.get(baseurl, {  
+    mode: 'no-cors',     
   }
-  </tbody>
-  </table> }
-  </div>
+  ).then((response) => {
+      setData(response.data);
+      setLoading(false);
+    })
+}
+, []);
+
+if (isLoading) {
+  return (
+      <div
+          style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              height: "100vh",
+              backgroundColor: "grey",
+          }}
+      >
+          Loading...
+      </div>
+  );
+}
+
+return (
+  <div className="App">
+    <table>
+    <tr>
+          <th>brand</th>
+          <th>model</th>
+          <th>color</th>
+          <th>register number</th>
+          <th>year</th>
+         
+  </tr>
+ <tbody>
+ {
+ data.map(item=> 
+ <tr key={item.id}>
+ <td>{item.brand}</td>
+ <td>
+{item.model}
+ </td>
+ <td>{item.color}</td>
+ <td>{item.registerNumber}</td>
+ <td>{item.year}</td>
+ <td>{item.price}</td>
+ </tr> 
+ )
+ }
+ </tbody>
+ </table>
+    
+     </div>
   );
  }
  export default App;
